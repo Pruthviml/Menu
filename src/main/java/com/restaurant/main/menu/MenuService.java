@@ -27,4 +27,8 @@ public class MenuService {
         return menuRepo.findById(id).orElse(null);
     }
 
+    public void remove(Long id) {
+        menuRepo.deleteById(id);
+    }
+
 }
