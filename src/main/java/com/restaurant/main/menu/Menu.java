@@ -1,6 +1,9 @@
 package com.restaurant.main.menu;
 
+import org.springframework.data.annotation.Id;
+
 public class Menu {
+    @Id
     private final Long id;
     private final String name;
     private final String description;
