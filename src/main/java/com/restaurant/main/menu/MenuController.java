@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/menu")
@@ -40,5 +41,23 @@ public class MenuController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Menu> update(
+            @PathVariable("id") Long id,
+            @RequestBody Menu updatedItem) {
+
+        Optional<Menu> updated = service.update(id, updatedItem);
+
+        return updated
+                .map(value -> ResponseEntity.ok().body(value))
+                .orElseGet(() -> {
+                    Menu created = service.create(updatedItem);
+                    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                            .path("/{id}")
+                            .buildAndExpand(created.getId())
+                            .toUri();
+                    return ResponseEntity.created(location).body(created);
+                });
+    }
 
 }
