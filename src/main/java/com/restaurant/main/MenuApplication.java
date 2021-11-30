@@ -1,4 +1,4 @@
-package com.restaurant.menu;
+package com.restaurant.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
