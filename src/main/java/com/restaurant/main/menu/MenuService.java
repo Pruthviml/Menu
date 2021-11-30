@@ -3,6 +3,7 @@ package com.restaurant.main.menu;
 import org.springframework.data.map.repository.config.EnableMapRepositories;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,11 @@ public class MenuService {
     public Menu find(Long id)
     {
         return menuRepo.findById(id).orElse(null);
+    }
+
+    public List<Menu> findAll()
+    {
+        return (List) menuRepo.findAll();
     }
 
     public boolean remove(Long id) {

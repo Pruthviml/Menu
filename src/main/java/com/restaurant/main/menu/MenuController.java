@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,14 +30,24 @@ public class MenuController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Id created");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> get(@PathVariable("id") Long id)
+    @GetMapping("/item/{id}")
+    public ResponseEntity<Object> getItem(@PathVariable("id") Long id)
     {
         Menu item = service.find(id);
         if(item == null )
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Menu item for the particular Id doesnot exists");
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(item);
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<Object> getAllItems()
+    {
+        List<Menu> items = service.findAll();
+        if(items == null || items.size() < 1)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Menu items doesnot exists");
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(items);
     }
 
     @DeleteMapping("/{id}")
